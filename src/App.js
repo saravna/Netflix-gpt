@@ -1,7 +1,25 @@
-import "./App.css";
+import { RouterProvider, createBrowserRouter } from "react-router-dom";
+import Body from "./components/Body";
+import Browse from "./components/Browse";
+import Login from "./components/Login";
 
 function App() {
-  return <div className="font-bold text-2xl">Lets build netflix GPT</div>;
+  const appRouter = createBrowserRouter([
+    {
+      path: "/",
+      element: <Body />,
+      children: [
+        { path: "/", element: <Login /> },
+        { path: "browse", element: <Browse /> },
+      ],
+    },
+  ]);
+
+  return (
+    <div>
+      <RouterProvider router={appRouter} />
+    </div>
+  );
 }
 
 export default App;
