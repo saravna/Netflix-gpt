@@ -1,11 +1,64 @@
-import React, { useState } from "react";
-import Header from "./Header";
+import React, { useRef, useState } from "react";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { auth } from "../utils/firebase";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router";
+import { addUser } from "../store/slices/UserSlice";
 
 const Login = () => {
   const [formType, setFormType] = useState("SIGNIN");
+  const [error, setError] = useState("");
+
+  const email = useRef();
+  const name = useRef();
+  const password = useRef();
+
+  const dispatch = useDispatch();
+
+  const navigate = useNavigate();
 
   const toggleFormType = () => {
     setFormType((p) => (p === "SIGNIN" ? "SIGNUP" : "SIGNIN"));
+  };
+
+  const handleSubmit = () => {
+    if (formType === "SIGNIN") {
+      signInWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log("login", { user });
+          navigate("/browse");
+          // ...
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(`${errorCode} - ${errorMessage}`);
+        });
+    } else {
+      createUserWithEmailAndPassword(auth, email.current.value, password.current.value)
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log("signup", { user });
+          updateProfile(user, { displayName: name.current.value })
+            .catch((e) => console.log(e))
+            .finally(() => {
+              const { uid, displayName, accessToken, email } = auth.currentUser;
+              dispatch(addUser({ uid, displayName, accessToken, email }));
+              navigate("/browse");
+            });
+        })
+
+        // ...
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setError(`${errorCode} - ${errorMessage}`);
+          // ..
+        });
+    }
   };
 
   return (
@@ -21,6 +74,7 @@ const Login = () => {
           name="email"
           type="email"
           placeholder="Enter email"
+          ref={email}
           className="p-4 my-4 border border-black block w-full bg-gray-600"
         />
         {formType === "SIGNUP" && (
@@ -28,6 +82,7 @@ const Login = () => {
             name="name"
             type="text"
             placeholder="Enter Name"
+            ref={name}
             className="p-4 my-4 border border-black block w-full bg-gray-600"
           />
         )}
@@ -35,9 +90,19 @@ const Login = () => {
           name="password"
           type="password"
           placeholder="Enter password"
+          ref={password}
           className="p-4 my-4 border border-black block w-full bg-gray-600"
         />
-        <button className="w-full bg-red-700 p-3 rounded-md my-2">Sign in</button>
+        <p className="text-red-600 my-2">{error}</p>
+        <button
+          onClick={(e) => {
+            e.preventDefault();
+            handleSubmit();
+          }}
+          className="w-full bg-red-700 p-3 rounded-md my-2"
+        >
+          Sign in
+        </button>
         <p onClick={toggleFormType} className="py-2 my-2 cursor-pointer">
           {formType === "SIGNIN" ? "New to netflix?  Signup now" : "Already have account?  Signin"}
         </p>
