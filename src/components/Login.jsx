@@ -28,7 +28,7 @@ const Login = () => {
           // Signed in
           const user = userCredential.user;
           console.log("login", { user });
-          navigate("/browse");
+          // navigate("/browse");
           // ...
         })
         .catch((error) => {
@@ -47,7 +47,7 @@ const Login = () => {
             .finally(() => {
               const { uid, displayName, accessToken, email } = auth.currentUser;
               dispatch(addUser({ uid, displayName, accessToken, email }));
-              navigate("/browse");
+              // navigate("/browse");
             });
         })
 

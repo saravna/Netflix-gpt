@@ -12,7 +12,7 @@ const Header = () => {
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
-        navigate("/");
+        // navigate("/");
       })
       .catch((error) => {
         // An error happened.
