@@ -20,10 +20,9 @@ const Header = () => {
       });
   };
 
-  console.log("header", user);
 
   return (
-    <div className="px-10 py-2 w-full absolute bg-gradient-to-b from-black flex justify-between items-center">
+    <div className="px-10 py-2 w-full fixed bg-gradient-to-b from-black flex justify-between items-center z-10">
       <div className="h-auto w-[120px]">
         <img
           src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
