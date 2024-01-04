@@ -6,7 +6,7 @@ const SecondaryContainer = () => {
   const nowPlaying = useSelector((state) => state.movie.nowPlaying);
   const popular = useSelector((state) => state.movie.popular);
   return (
-    <div className="-mt-2 z-[1]">
+    <div className="">
       <MovieList title={"Now Playing"} movies={nowPlaying} />
       <MovieList title={"Popular"} movies={popular} />
       {/* <MovieList title={"Now Playing"} movies={nowPlaying} />

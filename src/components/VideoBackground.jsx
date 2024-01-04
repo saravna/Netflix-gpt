@@ -5,7 +5,6 @@ const VideoBackground = ({ id }) => {
   const { videos } = useMovieVideo(id);
 
   const trailer = videos.find((v) => v.type === "Trailer");
-  console.log(trailer);
   return (
     <div className="w-full">
       <iframe

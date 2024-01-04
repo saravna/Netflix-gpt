@@ -1,13 +1,13 @@
 import { signOut } from "@firebase/auth";
 import React from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { auth } from "../utils/firebase";
-import { useNavigate } from "react-router";
+import { toggleGptModal } from "../store/slices/gptSlice";
 
 const Header = () => {
   const user = useSelector((state) => state.user.user);
 
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const handleLogout = () => {
     signOut(auth)
@@ -20,9 +20,12 @@ const Header = () => {
       });
   };
 
+  const handleGptClick = () => {
+    dispatch(toggleGptModal());
+  };
 
   return (
-    <div className="px-10 py-2 w-full fixed bg-gradient-to-b from-black flex justify-between items-center z-10">
+    <div className="px-10 py-2 w-full bg-gradient-to-b from-black flex justify-between items-center z-10">
       <div className="h-auto w-[120px]">
         <img
           src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
@@ -32,7 +35,10 @@ const Header = () => {
       </div>
       {/* {user && <button>Logout</button>} */}
       {user && (
-        <div className="flex gap-2">
+        <div className="flex gap-4">
+          <button onClick={handleGptClick} className="py-2 px-3 bg-purple-600 text-white rounded-lg">
+            Gpt Search
+          </button>
           <div className="h-[40px] wi-[40px]">
             <img
               className="object-cover h-full w-auto"
