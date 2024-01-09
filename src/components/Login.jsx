@@ -68,7 +68,7 @@ const Login = () => {
         alt="netflix-banner"
         className="object-cover h-full w-full"
       />
-      <form className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-white w-4/12 bg-black px-12 py-16 bg-opacity-80 rounded-md">
+      <form className="absolute top-[50%] left-[50%] -translate-x-[50%] -translate-y-[50%] text-white w-[calc(100%-30px)] md:w-8/12 lg:w-5/12 bg-black px-12 py-16 bg-opacity-80 rounded-md">
         <h3 className="text-3xl font-bold my-4">{formType === "SIGNIN" ? "Login" : "Signup"}</h3>
         <input
           name="email"

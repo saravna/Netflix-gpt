@@ -13,7 +13,7 @@ const MainContainer = () => {
   const { original_title, overview, id } = mainMovie;
 
   return (
-    <div className="" style={{ height: "calc(100vh - 200px)" }}>
+    <div className="h-[350px] md:h-[calc(100vh-400px)] lg:h-[calc(100vh-200px)]">
       <VideoTitle title={original_title} overview={overview} />
       <VideoBackground id={id} />
     </div>

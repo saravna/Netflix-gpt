@@ -25,7 +25,7 @@ const Header = () => {
   };
 
   return (
-    <div className="px-10 py-2 w-full bg-gradient-to-b from-black flex justify-between items-center z-10">
+    <div className="px-10 py-2 w-full bg-gradient-to-b from-black flex justify-between items-center z-10 flex-col md:flex-row">
       <div className="h-auto w-[120px]">
         <img
           src="https://assets.stickpng.com/images/580b57fcd9996e24bc43c529.png"
@@ -35,7 +35,7 @@ const Header = () => {
       </div>
       {/* {user && <button>Logout</button>} */}
       {user && (
-        <div className="flex gap-4">
+        <div className="flex gap-4 pb-4 ">
           <button onClick={handleGptClick} className="py-2 px-3 bg-purple-600 text-white rounded-lg">
             Gpt Search
           </button>
